@@ -28,7 +28,8 @@ Si vous ouvrez seulement la **console Python** (shell) avec auto-import, le scri
 1. Indiquer **periodic** sur votre copie (le script est déjà en mode périodique).
 2. Pour chaque événement de l’énoncé, choisir le **numéro du template** (menu 1–14), puis entrer les montants demandés.
 3. Après chaque écriture, un **résumé compact** s’affiche.
-4. **Sur NumWorks, utiliser uniquement des chiffres** dans « Choix » (les lettres C, D, etc. ne passent souvent pas dans `input()` sans mode alpha) :
+4. **Affichage sur NumWorks** : le tableau large (13 colonnes) peut bloquer la console. Le script affiche **une ligne par compte** (format court). Toutes les **4 écritures**, puis à la fin, tapez **`1`** puis **exe** quand vous voyez `1 puis exe = menu` (sinon la calculatrice semble « figée » en attendant).
+5. **Sur NumWorks, utiliser uniquement des chiffres** dans « Choix » (les lettres C, D, etc. ne passent souvent pas dans `input()` sans mode alpha) :
    - **`91`** — tableau compact
    - **`92`** — grand tableau (slide 22)
    - **`93`** — soldes et vérification A = P + CP
@@ -36,7 +37,7 @@ Si vous ouvrez seulement la **console Python** (shell) avec auto-import, le scri
    - **`95`** — annuler la dernière écriture
    - **`96`** — réinitialiser
    - **`0`** — quitter
-5. Amortissement linéaire auto : code **`15`** (plus besoin de `12a`).
+6. Amortissement linéaire auto : code **`15`** (plus besoin de `12a`).
 
 ## Templates (équivalents cas Rameau)
 
@@ -54,7 +55,7 @@ Si vous ouvrez seulement la **console Python** (shell) avec auto-import, le scri
 | 10 | Personnel (salaires + charges sociales à payer) — 2 lignes |
 | 11 | Intérêts payés |
 | 12 | Amortissement (montant saisi) |
-| 12a | Amortissement linéaire (coût ÷ durée) |
+| 15 | Amortissement linéaire (coût ÷ durée) |
 | 13 | Dividende déclaré |
 | 14 | Inventaire de fin — **variation de stock** (periodic) |
 

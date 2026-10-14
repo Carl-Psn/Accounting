@@ -40,6 +40,37 @@ EQ_KEYS = ("cap", "re", "ni")
 balances = {k: 0 for k in COL_KEYS}
 rows = []  # list of (num, changes dict, detail)
 txn_num = 0
+_NW = None
+NW_WRAP = 32  # longueur max d'une ligne (console NumWorks)
+
+
+def _is_numworks():
+    global _NW
+    if _NW is None:
+        try:
+            import ion  # noqa: F401
+            _NW = True
+        except ImportError:
+            _NW = False
+    return _NW
+
+
+def _say(text=""):
+    """Affichage court, ASCII, decoupe des longues lignes."""
+    s = str(text).replace("\u2014", "-")
+    if not s:
+        print()
+        return
+    while len(s) > NW_WRAP:
+        print(s[:NW_WRAP])
+        s = s[NW_WRAP:]
+    print(s)
+
+
+def _pause():
+    """Evite l'impression que le script est bloque apres un gros affichage."""
+    if _is_numworks():
+        input("1 puis exe = menu")
 
 
 def _f(x):
@@ -248,6 +279,12 @@ CMD = {
 
 
 def print_menu():
+    if _is_numworks():
+        _say("Ecritures 1-14, 15=amort")
+        _say("91 tab 92 detail 93 sol")
+        _say("94 demo 95 annul 96 init")
+        _say("0 quitter")
+        return
     print("\n--- Ecritures 1-14, 15=amort auto ---")
     for code, label, _ in EVENTS:
         print(code, label)
@@ -266,24 +303,53 @@ def format_compact(changes, detail=""):
     for k in COL_KEYS:
         v = changes.get(k, 0)
         if v:
-            bits.append(COL_LABEL[k] + _f(v))
-    line = " | ".join(bits) if bits else "(vide)"
+            bits.append(COL_SHORT[COL_KEYS.index(k)] + _f(v))
+    line = " ".join(bits) if bits else "(vide)"
     if detail:
-        line += " — " + detail
+        line = line + " " + detail
     return line
 
 
+def print_row_stacked(num, changes, detail=""):
+    """Une ligne par compte (evite les lignes trop longues sur NumWorks)."""
+    _say("#" + str(num))
+    any_line = False
+    for i, k in enumerate(COL_KEYS):
+        v = changes.get(k, 0)
+        if v:
+            any_line = True
+            _say(" " + COL_SHORT[i] + " " + _f(v))
+    if detail:
+        _say(" " + detail)
+    if not any_line and not detail:
+        _say(" (N/A)")
+
+
 def print_row_compact(num, changes, detail=""):
+    if _is_numworks():
+        print_row_stacked(num, changes, detail)
+        return
     print("#" + str(num) + ": " + format_compact(changes, detail))
 
 
 def print_table_compact():
+    if not rows:
+        _say("(aucune ecriture)")
+    shown = 0
     for num, ch, det in rows:
         print_row_compact(num, ch, det)
-    print("#Fin: " + format_compact(balances))
+        shown += 1
+        if _is_numworks() and shown % 4 == 0:
+            _pause()
+    _say("#Fin")
+    print_row_stacked("Fin", balances, "End")
+    _pause()
 
 
 def print_row(num, changes, detail):
+    if _is_numworks():
+        print_row_stacked(num, changes, detail)
+        return
     parts = [str(num).ljust(2)]
     for k in COL_KEYS:
         parts.append(_f(changes.get(k, 0)).rjust(4))
@@ -294,11 +360,17 @@ def print_row(num, changes, detail):
 
 
 def print_table_header():
+    if _is_numworks():
+        return
     print("N ", " ".join(c.rjust(4) for c in COL_SHORT))
-    print("-" * 72)
+    print("-" * 40)
 
 
 def print_table(from_n=1):
+    if _is_numworks():
+        _say("Tableau (ligne par compte)")
+        print_table_compact()
+        return
     print_table_header()
     for num, ch, det in rows:
         if num >= from_n:
@@ -314,15 +386,16 @@ def print_final_row():
 
 def print_summary():
     ok, a, r = check_balance()
-    print("\n=== Soldes ===")
+    _say("=== Soldes ===")
     for k, short in zip(COL_KEYS, COL_SHORT):
         v = balances[k]
         if v != 0:
-            print(short + ":", v)
-    print("Total actif:", assets_total())
-    print("Total passif:", liab_total())
-    print("Cap + Res + RN:", equity_total())
-    print("Equation OK:" if ok else "DESEQUILIBRE:", ok)
+            _say(short + ": " + str(v))
+    _say("Actif: " + str(assets_total()))
+    _say("Passif: " + str(liab_total()))
+    _say("Cap+Res+RN: " + str(equity_total()))
+    _say("OK" if ok else "DESEQ")
+    _pause()
 
 
 def undo_last():
@@ -371,30 +444,34 @@ def run_demo_rameau():
 
 
 def _run_command(name):
-    if name == "quit":
-        return "stop"
-    if name == "compact":
-        print_table_compact()
-    elif name == "table":
-        print_table()
-    elif name == "soldes":
-        print_summary()
-    elif name == "demo":
-        run_demo_rameau()
-        ok, a, _ = check_balance()
-        print("Demo chargee. Actif", a, "OK" if ok else "ERREUR")
-        print_table_compact()
-    elif name == "undo":
-        undo_last()
-    elif name == "reset":
-        reset_all()
+    try:
+        if name == "quit":
+            return "stop"
+        if name == "compact":
+            print_table_compact()
+        elif name == "table":
+            print_table()
+        elif name == "soldes":
+            print_summary()
+        elif name == "demo":
+            run_demo_rameau()
+            ok, a, _ = check_balance()
+            _say("Demo actif " + str(a))
+            print_table_compact()
+        elif name == "undo":
+            undo_last()
+        elif name == "reset":
+            reset_all()
+    except Exception as e:
+        _say("Erreur affichage")
+        _say(str(e))
+        _pause()
     return None
 
 
 def main():
-    print("Equation comptable —", METHOD)
-    print("Montants en milliers CU")
-    print("Menu: chiffres uniquement (91=tableau)")
+    _say("Compta " + METHOD)
+    _say("Milliers CU, 91=tableau")
     ev_map = {code: fn for code, _, fn in EVENTS}
     ev_map["12a"] = ev_depreciation_auto  # alias PC / ancien script
     while True:
@@ -435,26 +512,21 @@ def main():
                     for j in range(i, len(rows)):
                         print_row_compact(*rows[j])
                     ok, _, _ = check_balance()
-                    print("Eq.", "OK" if ok else "!!")
+                    _say("Eq OK" if ok else "Eq !!")
             except (KeyboardInterrupt, EOFError):
-                print("\nAnnule.")
+                _say("Annule.")
+            except Exception as e:
+                _say("Erreur")
+                _say(str(e))
         else:
-            print("Choix inconnu.")
-
-
-def _is_numworks():
-    try:
-        import ion  # noqa: F401 — module NumWorks uniquement
-        return True
-    except ImportError:
-        return False
+            _say("Choix inconnu.")
 
 
 def _run_self_test():
     ok, a, r = run_demo_rameau()
     expected_a = 717
     assert ok and abs(a - expected_a) < 0.001, (ok, a, r, balances)
-    print("Test Rameau OK — actif", a, "RN", balances["ni"])
+    print("Test Rameau OK actif", a, "RN", balances["ni"])
     print_table()
 
 
