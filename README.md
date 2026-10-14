@@ -9,8 +9,19 @@ Script Python pour construire le **tableau d’équation comptable** (format sli
 ## Installation NumWorks
 
 1. Aller sur [workshop.numworks.com](https://www.numworks.com/fr/python/) (ou l’éditeur Python depuis le site NumWorks).
-2. Créer un nouveau script, coller le contenu de `compta_equation.py`.
-3. Transférer sur la calculatrice (USB ou compte NumWorks).
+2. Créer un nouveau script nommé **`compta`** (évitez **`test`**, nom ambigu).
+3. Coller le contenu de `compta_equation.py`, transférer sur la calculatrice.
+
+### Démarrer le menu (important)
+
+Sur NumWorks, **Exécuter le script** ne lance pas `if __name__ == "__main__"` : la calculatrice fait `from compta import *`. Le script détecte NumWorks et appelle **`main()`** tout seul après l’import.
+
+1. Liste des scripts → **`…`** à côté du nom → **Exécuter le script**.
+2. Le menu « Equation comptable » doit s’afficher.
+
+Si rien ne se passe (ancienne version du fichier) : à l’invite `>>>`, tapez **`main()`** ou **`demarrer()`** (touche **var** → choisir la fonction).
+
+Si vous ouvrez seulement la **console Python** (shell) avec auto-import, le script se charge aussi ; avec la version à jour, le menu démarre après `from compta import *`.
 
 ## Utilisation à l’examen
 

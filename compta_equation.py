@@ -1,5 +1,7 @@
 # Comptabilite — equation comptable, methode periodique
 # Copier ce fichier sur NumWorks (Python app) pour l'examen.
+# Nom du script sur NumWorks: compta ou rameau (PAS "test").
+# Menu: ... du script -> Executer le script -> le menu demarre seul.
 # Montants en milliers de CU, comme le cas Rameau.
 
 METHOD = "periodic"
@@ -409,13 +411,43 @@ def main():
             print("Choix inconnu.")
 
 
-if __name__ == "__main__":
+def _is_numworks():
+    try:
+        import ion  # noqa: F401 — module NumWorks uniquement
+        return True
+    except ImportError:
+        return False
+
+
+def _run_self_test():
+    ok, a, r = run_demo_rameau()
+    expected_a = 717
+    assert ok and abs(a - expected_a) < 0.001, (ok, a, r, balances)
+    print("Test Rameau OK — actif", a, "RN", balances["ni"])
+    print_table()
+
+
+def _start():
     import sys
-    if len(sys.argv) > 1 and sys.argv[1] == "test":
-        ok, a, r = run_demo_rameau()
-        expected_a = 717
-        assert ok and abs(a - expected_a) < 0.001, (ok, a, r, balances)
-        print("Test Rameau OK — actif", a, "RN", balances["ni"])
-        print_table()
-    else:
-        main()
+    try:
+        argv = sys.argv
+    except AttributeError:
+        argv = []
+    if (
+        not _is_numworks()
+        and __name__ == "__main__"
+        and len(argv) > 1
+        and argv[1] == "test"
+    ):
+        _run_self_test()
+        return
+    main()
+
+
+# NumWorks importe via "from mon_script import *" (__name__ != "__main__")
+demarrer = main
+
+if _is_numworks():
+    _start()
+elif __name__ == "__main__":
+    _start()
