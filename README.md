@@ -27,10 +27,16 @@ Si vous ouvrez seulement la **console Python** (shell) avec auto-import, le scri
 
 1. Indiquer **periodic** sur votre copie (le script est déjà en mode périodique).
 2. Pour chaque événement de l’énoncé, choisir le **numéro du template** (menu 1–14), puis entrer les montants demandés.
-3. Après chaque écriture, un **résumé compact** s’affiche ; taper **`C`** pour revoir tout le tableau au format court, **`T`** pour le grand tableau (colonnes comme la slide 22).
-4. **`S`** : soldes et vérification Actif = Passif + Capitaux propres.
-5. **`U`** : annuler la dernière opération (y compris les deux lignes du template 10).
-6. **`D`** : charger le cas Rameau corrigé pour s’entraîner.
+3. Après chaque écriture, un **résumé compact** s’affiche.
+4. **Sur NumWorks, utiliser uniquement des chiffres** dans « Choix » (les lettres C, D, etc. ne passent souvent pas dans `input()` sans mode alpha) :
+   - **`91`** — tableau compact
+   - **`92`** — grand tableau (slide 22)
+   - **`93`** — soldes et vérification A = P + CP
+   - **`94`** — démo Rameau
+   - **`95`** — annuler la dernière écriture
+   - **`96`** — réinitialiser
+   - **`0`** — quitter
+5. Amortissement linéaire auto : code **`15`** (plus besoin de `12a`).
 
 ## Templates (équivalents cas Rameau)
 

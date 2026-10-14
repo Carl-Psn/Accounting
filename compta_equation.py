@@ -230,23 +230,35 @@ EVENTS = (
     ("10", "Personnel (salaires + soc, a payer)", ev_personnel_accrual),
     ("11", "Interets payes", ev_interest_paid),
     ("12", "Amortissement (montant)", ev_depreciation),
-    ("12a", "Amortissement lineaire auto", ev_depreciation_auto),
+    ("15", "Amortissement lineaire auto", ev_depreciation_auto),
     ("13", "Dividende declare", ev_dividend_declared),
     ("14", "Inventaire fin (periodic)", ev_ending_inventory),
 )
 
+# Commandes sans lettres (NumWorks: input() = chiffres seulement)
+CMD = {
+    "0": "quit",
+    "91": "compact",
+    "92": "table",
+    "93": "soldes",
+    "94": "demo",
+    "95": "undo",
+    "96": "reset",
+}
+
 
 def print_menu():
-    print("\n--- Evenements ---")
+    print("\n--- Ecritures 1-14, 15=amort auto ---")
     for code, label, _ in EVENTS:
         print(code, label)
-    print("T  Tableau complet")
-    print("C  Tableau compact (NumWorks)")
-    print("S  Soldes finaux")
-    print("D  Demo Rameau (test)")
-    print("U  Derniere ecriture annuler")
-    print("R  Reinitialiser")
-    print("Q  Quitter")
+    print("--- Affichage (chiffres) ---")
+    print("91 Tableau compact")
+    print("92 Tableau complet")
+    print("93 Soldes finaux")
+    print("94 Demo Rameau")
+    print("95 Annuler dernier")
+    print("96 Reinitialiser")
+    print("0  Quitter")
 
 
 def format_compact(changes, detail=""):
@@ -358,38 +370,57 @@ def run_demo_rameau():
     return check_balance()
 
 
+def _run_command(name):
+    if name == "quit":
+        return "stop"
+    if name == "compact":
+        print_table_compact()
+    elif name == "table":
+        print_table()
+    elif name == "soldes":
+        print_summary()
+    elif name == "demo":
+        run_demo_rameau()
+        ok, a, _ = check_balance()
+        print("Demo chargee. Actif", a, "OK" if ok else "ERREUR")
+        print_table_compact()
+    elif name == "undo":
+        undo_last()
+    elif name == "reset":
+        reset_all()
+    return None
+
+
 def main():
     print("Equation comptable —", METHOD)
     print("Montants en milliers CU")
+    print("Menu: chiffres uniquement (91=tableau)")
     ev_map = {code: fn for code, _, fn in EVENTS}
+    ev_map["12a"] = ev_depreciation_auto  # alias PC / ancien script
     while True:
         print_menu()
         choice = input("Choix: ").strip()
         if not choice:
             continue
+        # NumWorks: pas de lettres dans input(); codes 91-96 et 0
+        if choice in CMD:
+            if _run_command(CMD[choice]) == "stop":
+                break
+            continue
         c = choice.lower()
-        if c in ("q", "quit"):
-            break
-        if c == "t":
-            print_table()
-            continue
-        if c == "c":
-            print_table_compact()
-            continue
-        if c == "d":
-            run_demo_rameau()
-            ok, a, _ = check_balance()
-            print("Demo chargee. Actif", a, "OK" if ok else "ERREUR")
-            print_table_compact()
-            continue
-        if c == "s":
-            print_summary()
-            continue
-        if c == "u":
-            undo_last()
-            continue
-        if c == "r":
-            reset_all()
+        # Lettres: secours sur PC / clavier alpha verrouille
+        letter_cmd = {
+            "q": "quit",
+            "t": "table",
+            "c": "compact",
+            "s": "soldes",
+            "d": "demo",
+            "u": "undo",
+            "r": "reset",
+        }.get(c)
+        if letter_cmd:
+            if _run_command(letter_cmd) == "stop":
+                break
             continue
         fn = ev_map.get(choice) or ev_map.get(c.upper())
         if fn:
