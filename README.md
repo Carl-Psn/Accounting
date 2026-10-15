@@ -6,6 +6,8 @@
 
 [`antiseche_rainforest_part3.py`](antiseche_rainforest_part3.py) : Part III — slides **37** (cash flow budget), **38** (income statement), **39** (balance sheet), **40** (erreurs) + colonnes du worksheet (slide 36). Même format NumWorks (lignes ≤ 28 caractères).
 
+[`antiseche_esg_slides26_29.py`](antiseche_esg_slides26_29.py) : Part II **ESG** — slides **26** (piliers), **27** (double materiality), **28** (exemples), **29** (structure de réponse). Antisèche éditeur, lignes courtes.
+
 ## Template slide 22 (console)
 
 [`template_slide22_periodic.py`](template_slide22_periodic.py) : même contenu via `print()` si vous préférez l’exécution (limité sur NumWorks).
