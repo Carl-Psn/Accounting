@@ -1,8 +1,12 @@
 # Accounting — equation comptable (NumWorks)
 
-## Template slide 22 (statique)
+## Antisèche NumWorks (recommandé)
 
-[`template_slide22_periodic.py`](template_slide22_periodic.py) affiche le tableau **Rameau / méthode périodique** (slide 22) et les **six erreurs à éviter** (slide 23), **sans interaction**. Copier sur NumWorks → **Exécuter le script**. Pour un autre cas, dupliquer le fichier et modifier les lignes dans `TABLE` et la ligne `End`.
+[`antiseche_rameau_periodic.py`](antiseche_rameau_periodic.py) : slide **22** (tableau Rameau, periodic) + slide **23** (six erreurs), en **commentaires `#`**. Ouvrir dans l’**éditeur** Python et **défiler** — **ne pas exécuter** (la console ne permet pas de remonter).
+
+## Template slide 22 (console)
+
+[`template_slide22_periodic.py`](template_slide22_periodic.py) : même contenu via `print()` si vous préférez l’exécution (limité sur NumWorks).
 
 ---
 
