@@ -1,5 +1,13 @@
 # Accounting — equation comptable (NumWorks)
 
+## Template slide 22 (statique)
+
+[`template_slide22_periodic.py`](template_slide22_periodic.py) affiche le tableau **Rameau / méthode périodique** de la slide 22, **sans interaction**. Copier sur NumWorks → **Exécuter le script**. Pour un autre cas, dupliquer le fichier et modifier les lignes dans `TABLE` et la ligne `End`.
+
+---
+
+# Accounting — equation comptable (NumWorks)
+
 Script Python pour construire le **tableau d’équation comptable** (format slide 22 du *Midterm Review Study Guide 2026*), en **méthode périodique** uniquement, sur le modèle du cas **Rameau Co.**
 
 ## Fichier
