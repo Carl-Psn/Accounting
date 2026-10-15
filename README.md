@@ -4,7 +4,7 @@
 
 [`antiseche_rameau_periodic.py`](antiseche_rameau_periodic.py) : slide **22** (tableau Rameau, periodic) + slide **23** (six erreurs), en **commentaires `#`**. Ouvrir dans l’**éditeur** Python et **défiler** — **ne pas exécuter** (la console ne permet pas de remonter).
 
-[`antiseche_rainforest_part3.py`](antiseche_rainforest_part3.py) : Part III — slides **37** (cash flow budget), **38** (income statement), **39** (balance sheet), **40** (erreurs) + colonnes du worksheet (slide 36). Même format NumWorks (lignes ≤ 28 caractères).
+[`antiseche_rainforest_part3.py`](antiseche_rainforest_part3.py) : Part III — slides **37**–**40** + worksheet (slide 36). Légende en tête : `##` slide, `--` structure, `>>` = lignes **gras** du PDF, indentation = détail.
 
 [`antiseche_esg_slides26_29.py`](antiseche_esg_slides26_29.py) : Part II **ESG** — slides **26** (piliers), **27** (double materiality), **28** (exemples), **29** (structure de réponse). Antisèche éditeur, lignes courtes.
 
