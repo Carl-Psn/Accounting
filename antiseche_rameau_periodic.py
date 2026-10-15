@@ -9,50 +9,70 @@
 # Assets = Liabilities + Shareholders' equity
 #
 # Colonnes (slide 22) :
-# N | Eq(net) | Adv | Inv | Rec | Cash
-#   | Debt | Pay | Sal | Soc | Div | Cap | RE | NI | IS detail
+# N | Equipment (net) | Advances to suppliers
+#   | Merchandise inventory | Trade receivables | Cash
+#   | Financial debt | Trade payables | Salaries payable
+#   | Social charges payable | Dividends payable
+#   | Share capital | Retained earnings | Net income
+#   | Details of IS transactions
 #
-# --- Ecritures ---
+# --- Ecritures (enonce slide 7 + impacts periodic) ---
 #
-# 1  Eq +240, Cash +160, Share cap +400
+# 1 Creation: equip magasin 240 + cash 160 apportes
+#   Equipment (net) +240, Cash +160, Share capital +400
 #
-# 2  Cash +200, Financial debt +200
+# 2 Emprunt bancaire 200
+#   Cash +200, Financial debt +200
 #
-# 3  N/A: no entry
+# 3 Commande fournitures 20, livraison an prochain, rien paye
+#   N/A: no entry
 #
-# 4  Advances +60, Cash -60
+# 4 Contrat marchandises 150; acompte 60 cash (livraison plus tard)
+#   Advances to suppliers +60, Cash -60
 #
-# 5  Adv -60, Trade pay +90
-#    NI -150 (Purchase of merchandise)
+# 5 Marchandises 150 recues; acompte impute; reste duu
+#   Advances to suppliers -60, Trade payables +90
+#   Net income -150 (Purchase of merchandise)
 #
-# 6  Rec +120, Cash +100
-#    NI +220 (Sales revenue)
+# 6 Vente 220 (100 cash, 120 a credit); cout vendu 90 (info)
+#   Trade receivables +120, Cash +100
+#   Net income +220 (Sales revenue)
 #
-# 7  Cash -15, NI -15 (Rent expense)
+# 7 Loyer annuel magasin 15, paye cash
+#   Cash -15, Net income -15 (Rent expense)
 #
-# 8  Trade pay -50, Cash -50
+# 8 Paiement fournisseur 50
+#   Trade payables -50, Cash -50
 #
-# 9  Rec -80, Cash +80
+# 9 Client rembourse 80 de sa dette
+#   Trade receivables -80, Cash +80
 #
-# 10 Salaries payable +40
-#    NI -40 (Salaries expense)
-# 10 Social charges payable +20
-#    NI -20 (Social charges expense)
+# 10 Personnel annee: salaires 40 + charges sociales 20, impayes
+#   Salaries payable +40, Net income -40 (Salaries expense)
+#   Social charges payable +20, Net income -20 (Social charges)
 #
-# 11 Cash -8, NI -8 (Interest expense)
+# 11 Interets emprunt 8, payes cash
+#   Cash -8, Net income -8 (Interest expense)
 #
-# 12 Eq(net) -30, NI -30 (Depreciation)
+# 12 Equip 240, duree 8 ans, lineaire, sans valeur residuelle
+#   Equipment (net) -30, Net income -30 (Depreciation expense)
 #
-# 13 Dividends payable +10, RE -10
+# 13 Dividende 10 declare au 31/12, paye an prochain
+#   Dividends payable +10, Retained earnings -10
 #
-# 14 Inv +60, NI +60 (Change in inventory)
+# 14 Inventaire fin: marchandises restantes 60
+#   Merchandise inventory +60
+#   Net income +60 (Change in inventory of merchandise)
 #
 # --- Soldes fin (End) ---
-# Eq(net) 210 | Adv 0 | Inv 60 | Rec 40 | Cash 407
-# Debt 200 | Pay 40 | Sal 40 | Soc 20 | Div 10
-# Cap 400 | RE -10 | NI 17
+# Equipment (net) 210 | Advances to suppliers 0
+# Merchandise inventory 60 | Trade receivables 40 | Cash 407
+# Financial debt 200 | Trade payables 40
+# Salaries payable 40 | Social charges payable 20
+# Dividends payable 10 | Share capital 400
+# Retained earnings -10 | Net income 17
 #
-# Check: Assets 717 = Liab 310 + Equity 407
+# Check: Assets 717 = Liabilities 310 + Equity 407
 #
 # ============================================================
 # SLIDE 23 - Six mistakes that cost points
