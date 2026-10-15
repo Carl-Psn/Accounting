@@ -6,7 +6,7 @@
 
 ---
 
-# Accounting — equation comptable (NumWorks)
+## Script interactif (`compta_equation.py`)
 
 Script Python pour construire le **tableau d’équation comptable** (format slide 22 du *Midterm Review Study Guide 2026*), en **méthode périodique** uniquement, sur le modèle du cas **Rameau Co.**
 
