@@ -2,7 +2,7 @@
 
 ## Template slide 22 (statique)
 
-[`template_slide22_periodic.py`](template_slide22_periodic.py) affiche le tableau **Rameau / méthode périodique** de la slide 22, **sans interaction**. Copier sur NumWorks → **Exécuter le script**. Pour un autre cas, dupliquer le fichier et modifier les lignes dans `TABLE` et la ligne `End`.
+[`template_slide22_periodic.py`](template_slide22_periodic.py) affiche le tableau **Rameau / méthode périodique** (slide 22) et les **six erreurs à éviter** (slide 23), **sans interaction**. Copier sur NumWorks → **Exécuter le script**. Pour un autre cas, dupliquer le fichier et modifier les lignes dans `TABLE` et la ligne `End`.
 
 ---
 
