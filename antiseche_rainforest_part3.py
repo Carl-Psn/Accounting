@@ -135,7 +135,7 @@
 # Regles:
 #  Cash negatif: Cash 0
 #  + Bank overdraft passif
-#  Stocks: - = debut; + = fin
+#  Stocks: - debut, + fin
 #  RN-1: div + retained
 #
 # --- SLIDE 40 ---

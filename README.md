@@ -4,6 +4,8 @@
 
 [`antiseche_rameau_periodic.py`](antiseche_rameau_periodic.py) : slide **22** (tableau Rameau, periodic) + slide **23** (six erreurs), en **commentaires `#`**. Ouvrir dans l’**éditeur** Python et **défiler** — **ne pas exécuter** (la console ne permet pas de remonter).
 
+[`antiseche_rainforest_part3.py`](antiseche_rainforest_part3.py) : Part III — slides **37** (cash flow budget), **38** (income statement), **39** (balance sheet), **40** (erreurs) + colonnes du worksheet (slide 36). Même format NumWorks (lignes ≤ 28 caractères).
+
 ## Template slide 22 (console)
 
 [`template_slide22_periodic.py`](template_slide22_periodic.py) : même contenu via `print()` si vous préférez l’exécution (limité sur NumWorks).
